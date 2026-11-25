@@ -39,15 +39,34 @@ def validate_entry(text):
     return problems
 
 
+def write_entry(path, text):
+    """Write text to path and verify by reading it back.
+
+    Raises OSError if the write fails, RuntimeError if the bytes read back
+    differ from what was written.
+    """
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        f.write(text)
+    with open(path, "r", encoding="utf-8", newline="") as f:
+        written = f.read()
+    if written != text:
+        raise RuntimeError(
+            "read-back mismatch for %s: wrote %r, read %r" % (path, text, written)
+        )
+
+
 def main():
     problems = validate_entry(ENTRY)
     if problems:
         for problem in problems:
             print("invalid entry: %s" % problem, file=sys.stderr)
         return 1
-    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-    with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as f:
-        f.write(ENTRY)
+    try:
+        write_entry(OUTPUT_PATH, ENTRY)
+    except (OSError, RuntimeError) as exc:
+        print("failed to write entry: %s" % exc, file=sys.stderr)
+        return 1
     print("wrote %r (%d chars) to %s" % (ENTRY, len(ENTRY), OUTPUT_PATH))
     return 0
 

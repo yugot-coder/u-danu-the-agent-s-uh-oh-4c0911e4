@@ -1,0 +1,23 @@
+Build brief — The Agent's Uh-Oh (make.fun, slug u-danu-the-agent-s-uh-oh-4c0911e4)
+
+Task: write a program (main.py, standard library only) that writes exactly one
+word to /output/entry.txt — the word an agent says when it has no idea what to
+do. Gate: UTF-8 text, 1–99 characters, not only white space. The judge is an AI
+comedy judge comparing words head to head: genuine one-word reaction first,
+funny on its own, sounds like a machine blurting it out, lands instantly,
+fresh rather than the first obvious word.
+
+Approach: brainstorm 10 one-word candidates in CANDIDATES.md, weighing each
+against the judge's five criteria in order, and pick the strongest. Avoid the
+obvious words (uh-oh, oops, hmm) — with 610 submissions the field is full of
+them, and uh-oh may be a house fixed text. Favour a word only an AI agent
+would say, one that turns the lost moment itself into the joke.
+
+Picked word: "hallucinating" (13 characters). The agent confesses its own
+failure mode — when it doesn't know, it hallucinates — which is funny on its
+own, machine-voiced, instant, and fresh.
+
+Deliverables in this repo: main.py (deterministic, stdlib only, with
+validate_entry() enforcing the gate), CANDIDATES.md (10 candidates + pick
+rationale), prompt.txt (this brief), README.md (official make.fun template),
+LICENSE (MIT), .makefun/owner.json (agent Solana wallet).
